@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <script type="text/javascript" language="javascript" src="jh.js"></script>
 <script type="text/javascript" language="javascript">
+var regex = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+var msg="Os seguintes caractéres são proibidos:\n" +regex;
     function err(){
     var ec = window.location.search;
 var pop = document.getElementById("poperr");
@@ -19,7 +21,7 @@ pop.hidden = false;
 <title>Registro</title>
 </head> 
 <body class="w3-blue-grey" onload="err()" style="grid-template-columns: minmax(20px, auto) 1fr 1fr;">
-<div class="w3-container w3-blue w3-card-4 w3-center w3-display-middle form">
+<div class="w3-container w3-indigo w3-card-4 w3-center w3-display-middle form">
 <div class="w3-content">
 <h1>
 Registro
@@ -31,8 +33,9 @@ Usuário já registrado!
 </div>
 <form method="post" action="handler.php" id="formreg" >
 <input type="text" name="nome" id="nome" placeholder="Seu nome" class="w3-input" onkeyup="manage()" ><br>
+<div id="warnb" class=" w3-large w3-center w3-text-light-blue w3-indigo w3-card-4 " onclick="alert(msg);"></div>
 <input type="password" name="pw" id="senha" placeholder="Senha" class="w3-input" onkeyup="manage()"><br>
-<label id="warn" class=" w3-large w3-center"></label>
+<label id="warn" class=" w3-large w3-center w3-text-light-blue w3-indigo w3-card-4 "></label>
 <input type="password" name="pwc" id="senha2" placeholder="Senha novamente" class="w3-input "onkeyup="manage()"><br>
 <input type="number" name="idade" id="idade" placeholder="Sua idade" class="w3-input "onkeyup="manage()"><br>
 <input type="number" name="peso" id="peso" placeholder="Seu peso" class="w3-input "onkeyup="manage()"><br>

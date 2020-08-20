@@ -4,8 +4,9 @@ $conn = new PDO(
     "mysql:host=localhost;dbname=pi", "root", "vertrigo"
 );
 if(array_key_exists(('log'),$_POST)){
-	$email = $_POST['nome'];
-	$senha = md5($_POST['pw']);
+	$email = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+	$senha = filter_input(INPUT_POST, 'pw', FILTER_SANITIZE_SPECIAL_CHARS);
+	$senha = md5($senha);
 	if(($email!=null) or ($senha!=null)){
 $rs = $conn->query("SELECT * FROM `user` WHERE `nome`='$email' and `senha`='$senha' ");
 $count = $rs->rowCount();
@@ -22,8 +23,9 @@ while($row = $rs->fetch(PDO::FETCH_OBJ)){
 }
 }
 if(array_key_exists(('reg'),$_POST)){
-	$email = $_POST['nome'];
-	$senha = md5($_POST['pw']);
+	$email = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+	$senha = filter_input(INPUT_POST, 'pw', FILTER_SANITIZE_SPECIAL_CHARS);
+	$senha = md5($senha);
 	$rs = $conn->query("SELECT * FROM `user` WHERE `nome`='$email' ");
 $count = $rs->rowCount();
 if($count==1){
