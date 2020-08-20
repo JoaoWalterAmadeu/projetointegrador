@@ -1,7 +1,7 @@
 <?php
 require("session.php");
 $conn = new PDO(
-    "mysql:host=fdb28.awardspace.net;dbname=3549283_pi", "3549283_pi", "wgHUgSP3p3D4h3B"
+    "mysql:;dbname=", "", ""
 );
 if(array_key_exists(('log'),$_POST)){
 	$email = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
