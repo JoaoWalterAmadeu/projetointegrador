@@ -16,21 +16,24 @@ while($row = $rs->fetch(PDO::FETCH_OBJ)){
 	$_SESSION['nome'] = $row->nome;
 	header('Location: bemvindo.php'); 
 }}else{
-	echo("Usuário não encontrado");
-}
-	
-	
-}
-}
+	header('Location: index.html?err'); 
+}}}
 if(array_key_exists(('reg'),$_POST)){
 	$email = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
 	$senha = filter_input(INPUT_POST, 'pw', FILTER_SANITIZE_SPECIAL_CHARS);
 	$senha = md5($senha);
 	$rs = $conn->query("SELECT * FROM `user` WHERE `nome`='$email' ");
-$count = $rs->rowCount();
+	$count = $rs->rowCount();
 if($count==1){
+	$aaaa = $conn->query("SELECT * FROM `user` WHERE `nome`='$email' and `senha`='$senha' ");
+	$aaac = $aaaa->rowCount();
+	if($aaaa==1){
+		$_SESSION['nome']=$email;
+		$_SESSION['id']= $row->id;
+		header('Location: bemvindo.php');
+	}else{
 	header('Location: registro.html?err'); 
-
+	}
 }else{
 	$sexo = $_POST['sexo'];
 	$idade = $_POST['idade'];
@@ -44,8 +47,9 @@ if($count==1){
 	$stmt->bindParam(5,$peso);
 	$stmt->bindParam(6,$altura);
 	$stmt->execute();
+	$aaaa = $conn->query("SELECT * FROM `user` WHERE `nome`='$email'");
 	$_SESSION['id'] = $row->id;
-	$_SESSION['nome'] = $row->nome;
+	$_SESSION['nome'] = $email;
 	header('Location: bemvindo.php'); 
 }
 }

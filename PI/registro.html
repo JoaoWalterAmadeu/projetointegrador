@@ -22,7 +22,7 @@ pop.hidden = false;
 </head> 
 <body class="w3-blue-grey" onload="err()" style="grid-template-columns: minmax(20px, auto) 1fr 1fr;">
 <div class="w3-container w3-indigo w3-card-4 w3-center w3-display-middle form">
-<div class="w3-content">
+<div class="w3-content" onmouseover="manage()">
 <h1>
 Registro
 </h1>
@@ -41,11 +41,11 @@ Usuário já registrado!
 <input type="number" name="peso" id="peso" placeholder="Seu peso" class="w3-input "onkeyup="manage()"><br>
 <input type="number" name="altura" id="altura" placeholder="Sua altura(CM)" class="w3-input "onkeyup="manage()"><br>
 <h6 class="w3-left-align">Sexo:</h6>
-<input type="radio" id="male" name="sexo" value="1" class="w3-radio w3-input">
-<label for="male" class="w3-input w3-left-align">Masculino</label>
-<input type="radio" id="female" name="sexo" value="0" class="w3-radio w3-input">
-<label for="female" class="w3-input w3-left-align">Feminino</label>
-<input type=submit id="regbtn" name="reg" value="Registrar" class="w3-btn w3-green w3-input w3-hover-pale-green w3-ripple" disabled>
+<input type="radio" id="male" name="sexo" value="1" class="w3-radio w3-input" onmouseover="manage()">
+<label for="male" class="w3-input w3-left-align" onmouseover="manage()">Masculino</label>
+<input type="radio" id="female" name="sexo" value="0" class="w3-radio w3-input" onmouseover="manage()">
+<label for="female" class="w3-input w3-left-align" onmouseover="manage()">Feminino</label><br>
+<input type=submit id="regbtn" name="reg" value="Registrar" onmouseover="manage()" class="w3-btn w3-green  w3-hover-pale-green w3-ripple" disabled>
 </form>
 <a href="index.html" class='w3-text-white w3-text'>Já tem uma conta?</a>
 </div>
