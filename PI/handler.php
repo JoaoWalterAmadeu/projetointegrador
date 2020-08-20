@@ -1,7 +1,7 @@
 <?php
 require("session.php");
 $conn = new PDO(
-    "mysql:host=localhost;dbname=pi", "root", "vertrigo"
+    "mysql:host=fdb28.awardspace.net;dbname=3549283_pi", "3549283_pi", "wgHUgSP3p3D4h3B"
 );
 if(array_key_exists(('log'),$_POST)){
 	$email = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -14,9 +14,9 @@ if($count==1){
 while($row = $rs->fetch(PDO::FETCH_OBJ)){
 	$_SESSION['id'] = $row->id;
 	$_SESSION['nome'] = $row->nome;
-	header('Location: bemvindo.php'); 
+	echo(" <meta http-equiv='refresh' content='0;url=bemvindo.php'>");
 }}else{
-	header('Location: index.html?err'); 
+	echo(" <meta http-equiv='refresh' content='0;url=index.html?err'>");
 }}}
 if(array_key_exists(('reg'),$_POST)){
 	$email = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -30,9 +30,9 @@ if($count==1){
 	if($aaaa==1){
 		$_SESSION['nome']=$email;
 		$_SESSION['id']= $row->id;
-		header('Location: bemvindo.php');
+		echo(" <meta http-equiv='refresh' content='0;url=bemvindo.php'>");
 	}else{
-	header('Location: registro.html?err'); 
+	echo(" <meta http-equiv='refresh' content='0;url=registro.html?err'>");
 	}
 }else{
 	$sexo = $_POST['sexo'];
@@ -50,7 +50,7 @@ if($count==1){
 	$aaaa = $conn->query("SELECT * FROM `user` WHERE `nome`='$email'");
 	$_SESSION['id'] = $row->id;
 	$_SESSION['nome'] = $email;
-	header('Location: bemvindo.php'); 
+	echo(" <meta http-equiv='refresh' content='0;url=bemvindo.php'>");
 }
 }
 ?>
