@@ -1,4 +1,7 @@
 .form{
-min-height:75%;
-min-width:70%;
+min-height:75%+50px;
+min-width:60%;
+}
+.hidden{
+    visibility:hidden;
 }
