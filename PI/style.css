@@ -5,3 +5,8 @@ min-width:60%;
 .hidden{
     visibility:hidden;
 }
+.ctrl{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
