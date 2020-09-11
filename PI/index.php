@@ -3,38 +3,27 @@ require('session.php');?>
 <!DOCTYPE html>
 <html>
     <head>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="logica.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" language="javascript" src="jh.js"></script>
-    <script type="text/javascript" language="javascript" src="md5.js"></script>
     <meta http-equiv="Content-Language" content="pt-br">
     <meta charset="UTF-8">
-    <title>
-        Home
-    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript" src="logica.js"></script>
+    <script type="text/javascript" language="javascript" src="jh.js"></script>
+    <script type="text/javascript" language="javascript" src="md5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+    
 <script type="text/javascript"> 
-function actupdt(){
-    var csen2 = document.getElementById("csen").value;
-    var p2 = md5(md5(csen2));
-    return updtformc(p2);
-    
-    
-}
 function ghash(){
  <?php if(isset($_SESSION['nome'])){?>
-    var hsen = "<?=$_SESSION['senha']?>";
-    cria_cookie('senha',hsen);
- var gravatar ="<?=md5(strtolower(trim($_SESSION['email']))) ?>";
-gimg(gravatar); return hsen
+ var gravatar ="<?=md5(strtolower(trim($_SESSION['email'])))?>";
+ gimg(gravatar); 
  <?php }?>
-
 }
 
    function GetUserName(action)
     {
         var freg = document.getElementById("regform");
+        var navbar = document.getElementById("navbarNav");
+        navbar.classList="navbar-collapse collapse";
         freg.classList.remove("w3-animate-opacity");
         <?php if(isset($_SESSION['nome'])){ ?>
         atualizar_dados();
@@ -43,27 +32,101 @@ gimg(gravatar); return hsen
       
   <?php  }else{ ?>
     sreg('1');
+        var poper = document.getElementById("poperr3");
+        poper.style.visibility = "hidden";
         var lcp = document.getElementById("lcp");
         lcp.classList.add("w3-animate-opacity");
         lcp.style.visibility = 'visible';
     <?php } ?>
     }
-    
-
 </script>
-</head><body class="w3-blue-grey" onload="pmenu();document.getElementById('pmenu').style.visibility = 'hidden';aaaaa();err();ghash();">
-<div id="adform">
-
+<script src="https://kit.fontawesome.com/c1ff9f4537.js" crossorigin="anonymous"></script>    
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="hover.css">
+<link rel="manifest" href="manifest.webmanifest">
+<title>
+        Home
+    </title>
+</head><body class="w3-white" style="visibility:hidden;" id="corpo" onload="getapi();pmenu();document.getElementById('pmenu').style.visibility = 'hidden';aaaaa();ghash();">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">LowCarbo</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Produtos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Contato</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">F.A.Q</a>
+      </li>
+      <li class="nav-item " style="float:left; display: inline-block;">
+        <?php if(isset($_SESSION['nome'])){?>
+        <a class="nav-link w3-text-black" id="dda"  href="#" OnClick="GetUserName('show')" ><img id="pimg3" class="rounded-circle" src=""> Perfil</a><?php } ?>
+       <?php if(!isset($_SESSION['nome'])){?>
+           <a class="far fa-user-circle hvr-icon nav-link w3-text-black" href="#" OnClick="GetUserName('show')" style="float:left; display: inline-block;"><h6 style="float:left; display: inline-block;margin-right:5px;">Fazer login</h6>  </a>
+           <?php } ?>
+      </li>
+      <?php if(isset($_SESSION['nome'])){?>
+                
+        <li class="nav-item w3-center w3-right" style="float:left; display: inline-block;">
+         <a class="fwd w3-red hvr-icon-forward nav-link" href="#" style="min-width:5%" onclick="logout();"><i class="fas fa-sign-out-alt hvr-icon"></i> Sair</a>
+            
+             </li>
+                <?php }?>
+                
+    </ul>
+  </div>
+</nav>
+<div class="overlay " id="overlay" style="visibility:visible">
+<div class="spinner-border text-primary meio" id="spinner" role="status">
+    <span class="sr-only ">Carregando...</span>
 </div>
+</div>
+<div id="updateform" class="w3-display-middle w3-indigo w3-card-4" style="min-width:25%;visibility:hidden">
+<h5 class="w3-left-align" style="margin-left:16px">
+Atualize seus dados</h5>
+<img id="pimg2" class="w3-badge w3-indigo ctrl w3-image" style="margin-top:15px;"/>
+<button onclick="atualizar_dados()" style="position:absolute" class="w3-display-topright w3-red w3-text-black w3-btn hvr-grow w3-hover-gray">X</button>
+<div class="ctrl w3-center " id="csform" style="position:relative">
+<div class="w3-card-2"><h3 id="cwarn" class="w3-pink"></h3></div>
+<h5 class="w3-text-white">Informe sua senha para continuar</h5>
+<input type="password" class="w3-input " placeholder="Digite sua senha atual" id="csen"/>
+    <button onclick="actupdt()" id="updtbtn"  class="w3-btn w3-green w3-hover-grey w3-center ctrl" style="margin-top:5px" >Avançar</button>
 
-<div id="updateform" class="w3-display-middle w3-indigo w3-card-4" style="min-width:25%;min-height:25%;visibility:hidden">
-<h5 class="w3-center">
-Formulário de atualização de dados
-</h5><button onclick="atualizar_dados()" class="w3-display-topright w3-red w3-text-black w3-btn">
-X
-</button><div class="ctrl w3-center" id="csform"><div class="w3-card-2"><h3 id="cwarn" class="w3-pink"></h3></div>
-<input type="password" placeholder="Digite sua senha atual" id="csen">
-<button onclick="actupdt()" id="updtbtn" style="margin-bottom:0px" class="w3-btn w3-green w3-hover-grey w3-center ctrl">Atualizar Dados</button></div>
+    <div id="adform" onmouseover="updtmng()" class="w3-indigo w3-panel" style="visibility:hidden;margin-top:20px">
+        <form method="POST" action="handler.php">
+        <div class="w3-tooltip"><span class="w3-text">E-mail</span>
+        <input type="email" style="display: inline-block" name='email' id="mail" class="w3-input " placeholder="Informe um novo email" value="<?php if(isset($_SESSION['email'])){echo($_SESSION['email']);} ?>" disabled="">
+          <a class="w3-btn w3-green w3-hover-gray w3-card" style="position:absolute" onclick="uli('email')"><i class=" far fa-edit" ></i></a>
+          </div>
+      <div>  
+      <input type="password"  style="display: inline-block" name='pw' id="cpwc" class="w3-input" onkeyup="updtmng()" placeholder="Nova senha(deixe em branco caso não queira mudar)" disabled>
+      <a class="w3-btn w3-green w3-hover-gray w3-card" style="position:absolute" onclick="uli('pw')"><i class=" far fa-edit" ></i></a>
+          
+           <input type="password" name='pwc' class="w3-input" onkeyup="updtmng()" id="cpw" placeholder="Repita a nova senha" disabled></div>
+        <div class="w3-tooltip"><span class="w3-text">Peso
+        </span>   
+        <input type="number" class="w3-input" id="peso" value="<?=$_SESSION['peso']?>" style="display: inline-block" placeholder="Peso(Kg)" name="pesoi" disabled>
+        <a class="w3-btn w3-green w3-hover-gray w3-card" style="position:absolute" onclick="uli('peso')"><i class=" far fa-edit" ></i></a></div>
+        <div class="w3-tooltip">  <span class="w3-text ">Altura</span>
+         <input type="number" class="w3-input " id="altura" value="<?=$_SESSION['altura']?>"  style="display: inline-block" placeholder="Altura(cm)" name="alturai" disabled>
+        <a class="w3-btn w3-green w3-hover-gray w3-card" style="position:absolute"  onclick="uli('altura')"><i class=" far fa-edit" ></i></a></div>
+        <input type="">
+            <input type="submit" id="upbtn" class="w3-btn w3-green w3-hover-grey" style="margin-top:16px" name="updt" value="Atualizar">
+        </form>
+</div>
+</div>
+</div>
 
 </div>
 <div id="regform" onmouseover="manage();" onkeyup="manage();" style="visibility:hidden" >
@@ -80,7 +143,7 @@ X
                 <h6>
                 Usuário já registrado!
                 </h6></div></div>
-                <button class="w3-btn w3-red w3-display-topright w3-text-black w3-hover-grey" style="margin-top:0px;" onclick="clrf()">X</button>
+                <button class="w3-btn w3-red w3-display-topright w3-text-black w3-hover-grey hvr-grow" style="margin-top:0px;" onclick="clrf()">X</button>
 <form method="post" action="handler.php" id="formreg" onmouseover="manage();">
     <input type="text" name="nome" id="rnome" placeholder="Seu nome" class="w3-input" ><br>
     <input type="email" name="email" id="mailcc" placeholder="Seu endereço de e-mail" class="w3-input" ><br>
@@ -120,32 +183,27 @@ X
 <button onclick="sreg()" class="w3-btn w3-blue" style="margin-top:5px">Registre-se aqui</button>
     </div></div></div>
 <div id='pmenu' class="w3-container w3-indigo w3-card-4 w3-center w3-display-middle form" style="min-width: 15%; max-width: 45%;visibility:hidden">
-<img id="pimg" class="w3-badge w3-indigo" style="margin-top:15px;"/>
+<img id="pimg" class="w3-badge w3-indigo ctrl w3-image" style="margin-top:15px;"/>
 <h3> 
     <?php if(isset($_SESSION['nome'])) {
          echo($_SESSION['nome']);}
           ?>
 </h3>
 <div <?php if(isset($_SESSION['peso'])) {
-         echo("onload=gdiaria(".$_SESSION['objetivo'].",".$_SESSION['peso'].",".$_SESSION['altura'].",".$_SESSION['idade'].",".$_SESSION['sexo'].",".$_SESSION['pe'].")>");}else{
+         echo("onload=gdiaria(".$_SESSION['objetivo'].",".$_SESSION['peso'].",".$_SESSION['altura'].",".$_SESSION['idade'].",".$_SESSION['sexo'].",".$_SESSION['pe'].")>
+          <a class='w3-btn w3-green w3-hover-gray w3-card hvr-grow fwd hvr-icon-grow' style='position:relative' onclick=atualizar_dados('show')><i class=' fas fa-user-edit hvr-icon'></i></a>
+          </div>");}else{
              echo("><h6>Alguns passos são necessários para completar seu registro. Clique no botão abaixo e preencha o formulário</h6>
-             <button onclick=atualizar_dados('show') class='w3-btn w3-green w3-hover-grey'>Atualizar dados</button>");
+             <button onclick=atualizar_dados('show') class='w3-btn w3-green w3-hover-grey'>Atualizar dados</button></div>");
          }
           ?> 
 
-</div>
-<button  OnClick="GetUserName('close')" class="w3-btn w3-red w3-display-topright w3-text-black w3-hover-grey" style="margin-top:0px;" >X</button>
+<button  OnClick="GetUserName('close')" class="w3-btn w3-red w3-display-topright w3-text-black w3-hover-grey hvr-grow" style="margin-top:0px;" >X</button>
 </div>
 
-<div class="w3-container w3-card-4 w3-bar" >
-<div class="w3-content w3-indigo w3-display-topright">
-    <table><tr>
-<td><button  OnClick="GetUserName('show')" class="w3-btn w3-blue" style="min-width:5%"><?php if(isset($_SESSION['nome'])){echo("👤Perfil");}else{
-    echo("👤Fazer login");
-    }?></button><br>
-            <?php if(isset($_SESSION['nome'])){?>
-            <td><button class="w3-btn w3-red" style="min-width:5%" onclick="logout();">Sair</button><?php }?>
-</table>
-</div></div></div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
 </html>
