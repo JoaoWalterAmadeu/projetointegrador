@@ -60,15 +60,15 @@ while($row = $rs->fetch(PDO::FETCH_OBJ)){
 	$_SESSION['sexo'] = $row->sexo;
 	$_SESSION['email'] = $row->email;
 	$_SESSION['senha'] = md5($row->senha);
-	$_SESSION['pe'] =0;
-	$_SESSION['objetivo']=1;
+	$_SESSION['pe'] = 0;
+	$_SESSION['objetivo'] = 1;
 	$domain =".". $_SERVER['HTTP_HOST'];
 	 setcookie('senha', md5($row->senha));
 
 	 echo(" <meta http-equiv='refresh' content='0;url=index.php'>");
 
 }}else{
-	echo(" <meta http-equiv='refresh' content='0;url=index.php?err'>");
+	echo(" <meta http-equiv='refresh' content='0;url=login.php?err'>");
 }}
 
 }
@@ -83,7 +83,7 @@ if(array_key_exists(('reg'),$_POST)){
 	$count = $rs->rowCount();
 	$rs = null;
 if($count==1){
-	echo(" <meta http-equiv='refresh' content='0;url=index.php?uar'>");
+	echo(" <meta http-equiv='refresh' content='0;url=registro.php?uar'>");
 	}
 else{
 	$sexo = $_POST['sexo'];
@@ -101,19 +101,7 @@ else{
 	$stmt->bindParam(7,$reee);
 	$stmt->execute();
 	$stmt = null;
-	$aaaa = $conn->query("SELECT FROM `user` WHERE `nome`='$email' and `senha`='$senha'");
-	$row = $aaaa->fetch(PDO::FETCH_OBJ);
-	$_SESSION['id'] = $row->id;
-	$_SESSION['nome'] = $email;
-	$_SESSION['peso'] = $row->peso;
-	$_SESSION['idade'] = $row->idade;
-	$_SESSION['altura'] = $row->altura;
-	$_SESSION['sexo'] = $row->sexo;
-	$_SESSION['email'] = $row->email;
-	$_SESSION['pe'] =0;
-	$_SESSION['objetivo']=1;
-	setcookie('senha', md5($row->senha));	
-	echo(" <meta http-equiv='refresh' content='0;url=index.php'>");
+	echo(" <meta http-equiv='refresh' content='0;url=login.php'>");
 }
 }
 ?>
