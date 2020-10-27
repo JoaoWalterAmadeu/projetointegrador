@@ -1,3 +1,9 @@
+<?php
+require('session.php');
+if(isset($_SESSION["nome"])){
+  require('perfil.php');
+}
+?>
 <!DOCTYPE html>
 <html><head>
 <head>
@@ -9,21 +15,22 @@
     <script type="text/javascript" language="javascript" src="md5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
 <script src="https://kit.fontawesome.com/c1ff9f4537.js" crossorigin="anonymous"></script>    
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="icon" type="image/png" href="images/lowcarbo.svg" >
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="style.css">
 <link rel="stylesheet" type="text/css" href="hover.css">
 <link rel="manifest" href="manifest.webmanifest">
 <title>Registro - LowCarbo</title>
 </head>
-    <body class="w3-white" style="visibility:hidden;" id="corpo" onload="getapi();">
+    <body style="visibility:hidden;" id="corpo" onload="getapi();">
         <?php include("nav.php")?>
 
-    <div class="card " style="background-color:white;width:100%;margin-top:2%" onmouseover="manage()">
-    <div class="alert alert-danger" role="alert" id="poperr" style="visibility:hidden">
-</div>
+    <div class="card ctrl" style="background-color:white;width:85%;margin-top:2%" onmouseover="manage();" onkeyup="manage();">
+    
     <div class="card-body">
     <h1>Registro</h1>
+    <div class="alert alert-danger" role="alert" id="poperr" style="visibility:hidden">
+</div>
 <form method="post" action="handler.php">
 <div class="form-group row">
     <label for="rnome" class="col-sm-2 col-form-label"  >Nome</label>
@@ -40,13 +47,15 @@
   <div class="form-group row">
     <label for="rsenha" class="col-sm-2 col-form-label">Senha</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" name="pw" id="rsenha" required>
+      <input type="password" class="form-control" style="display: inline-block"  name="pw" id="rsenha" required>
+      <span onclick="ssenha('rsenha')" style="position:absolute;float:right;margin-left:-2.9em;" class="btn btn-outline-primary text-wrap"><i class="fa fa-fw fa-eye"></i>
     </div>
   </div>
   <div class="form-group row">
     <label for="rsenha2" class="col-sm-2 col-form-label">Confirme sua senha</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" name="pwc" id="rsenha2" required>
+      <input type="password" class="form-control" style="display: inline-block"  name="pwc" id="rsenha2" required>
+      <span onclick="ssenha('rsenha2')" style="position:absolute;float:right;margin-left:-2.9em;" class="btn btn-outline-primary text-wrap"><i class="fa fa-fw fa-eye"></i>
     </div>
   </div>
 
@@ -55,7 +64,7 @@
       <legend class="col-form-label col-sm-2 pt-0">Sexo</legend>
       <div class="col-sm-10">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="sexo" id="gridRadios1" value="1" checked>
+          <input class="form-check-input" type="radio" name="sexo" id="gridRadios1" value="1" >
           <label class="form-check-label" for="gridRadios1">
             Masculino
           </label>
@@ -69,9 +78,9 @@
       </div>
     </div>
   </fieldset><br>
-  <input type="submit" class="btn btn-primary btn-lg" name="reg" value="Fazer Registro">
+  <input type="submit" class="btn btn-primary btn-lg fwd" id="regbtn" name="reg" value="Fazer Registro">
 </form>
-<a href="login.php" class="btn btn-danger" style="margin-top:5px">Já tem uma conta? Faça login</a>
+<a href="login.php" class="btn btn-danger fwd" style="margin-top:5px">Já tem uma conta? Faça login</a>
 </div>
 </div>
 </div>

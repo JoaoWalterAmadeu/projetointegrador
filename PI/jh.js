@@ -3,6 +3,7 @@ var pwk =0;
 var ewk = 0;
 var ppw = 0;
 var paw=0;
+var piw=0;
 function err(){
    if((valor_cookie("senha")=="")){  
     var ec = window.location.search;
@@ -22,7 +23,7 @@ if(ec=="?uar"){
 }
 }
 function clcp(){
-        lcp.classList.remove("w3-animate-opacity");
+ 
         lcp.style.visibility = 'hidden';
         var poperr = document.getElementById("poperr");
     poperr.style.visibility = 'hidden';return true
@@ -34,14 +35,12 @@ function sreg(a){
        }else{
         clcp();
         var freg = document.getElementById("regform");
-        freg.classList.add("w3-animate-opacity");
     freg.style.visibility = 'visible'
        }
 }
 function clrf(){
         var freg = document.getElementById("regform");
         freg.style.visibility = 'hidden';
-        freg.classList.remove("w3-animate-opacity");
         var errc = document.getElementById("poperr3");
         errc.style.visibility = 'hidden';
         return true
@@ -71,9 +70,9 @@ var nomes = document.getElementById("rnome").value;
 //var altura = document.getElementById("altura").value;
 var lblb = document.getElementById("poperr");
 var lbl = document.getElementById("poperr");
-var rb1 = document.getElementById("male");
+var rb1 = document.getElementById("gridRadios1");
 var efd = document.getElementById("mailcc").value;
-var rb0 = document.getElementById("female");
+var rb0 = document.getElementById("gridRadios2");
 var asd = 0;
 var das = 0;
 var dasa = containsSpecialCharacters(nomes,regex);
@@ -85,14 +84,14 @@ var kkkkkkkk = 0;
 	var kkkkkkkk = 1;
 }
 if((das == true)||(dasa==true)||(dass==true)){
-    lblb.style.visibility="visibility";
+    lblb.style.visibility="visible";
 	lblb.innerHTML = ("Caracteres especiais não são permitidos.");
 }else{
     lblb.style.visibility="hidden";
 	lblb.innerHTML= ("");
 }
 if((c!=cs)&&(c!='')&&(cs!='')){
-    lbl.style.visibility="visibility";
+    lbl.style.visibility="visible";
 	lbl.innerHTML = "Senhas não correspondem";
 	
 }else{
@@ -101,7 +100,7 @@ if((c!=cs)&&(c!='')&&(cs!='')){
 	asd = 1;
 }
 
-if((c!='')&&(cs !='')&&(nome!='')&&(das==false)&&(dasa==false)&&(dass==false)&&(kkkkkkkk==1)&&(c==cs)){
+if((c!='')&&(cs !='')&&(nomes!='')&&(das==false)&&(dasa==false)&&(dass==false)&&(kkkkkkkk==1)&&(c==cs)){
 	document.getElementById("regbtn").disabled = false;
 }else{
 	document.getElementById("regbtn").disabled = true;
@@ -112,19 +111,8 @@ function containsSpecialCharacters(str,regex){
 	return regex.test(str);
 	}
 
-function pmenu(arg){
-    var perfil = document.getElementById("pmenu");
-   
-	if(arg=='show'){
-		perfil.classList.add("w3-animate-opacity");
-        perfil.style.visibility = 'visible';	
-
-	}else{
-		perfil.classList.remove("w3-animate-opacity");
-	perfil.style.visibility = 'hidden';}
-}
 function vf(){
-	var regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+	var regex = /[ !#$%^&~*()+\=\[\]{};':"\\|,<>\/?]/g;
 	var cs = document.getElementById("nome").value;
 	var c = document.getElementById("senha").value;
 	var dasa = containsSpecialCharacters(cs,regex);
@@ -174,12 +162,17 @@ function updtformc(p2){
      
      cwarn.style.visibility = "visible";
      cwarn.innerHTML="Senha incorreta.";
+     window.scrollTo(findTop("cwarn"), 0); 
    
  }
 }
+function findTop(element) {
+    var rec = document.getElementById(element).getBoundingClientRect();
+    return {top: rec.top + window.scrollY};
+  }
 function cria_cookie(nome, valor) {
      valor = encodeURI(valor);
-     document.cookie =nome + '=' + valor +';SameSite=None; Secure;'+ '; path=/' 
+     document.cookie =nome + '=' + valor +";Path=/pi;Domain="+location.host;
      return  document.cookie
 }
 function valor_cookie(nome_cookie) {
@@ -196,14 +189,16 @@ function valor_cookie(nome_cookie) {
     return decodeURI(cookies);
 }
 function logout(){
- apaga_cookie('senha');
- apaga_cookie('PHPSESSID');
+removeItem("carrinho","/pi",location.host);
+removeItem("items","/pi",location.host);
+removeItem("senha","/",location.host);
+removeItem("PHPSESSID","/",location.host);
  window.location.href = "logout.php";
 }
 function apaga_cookie(nome){
     var data = new Date(2010,0,01);
     data = data.toUTCString();
-    document.cookie = nome + '=; expires=' + data + '; path=/';
+    document.cookie = nome + '=; expires=' + data ;
 }
 function actupdt(){
     var csen2 = document.getElementById("csen").value;
@@ -212,6 +207,22 @@ function actupdt(){
      return p2;
 }
 function uli(inn){
+    if(inn=="idade"){
+        var mpw = piw%2;
+        var pw=document.getElementById("idade");
+        if(mpw==1){
+            pw.disabled="disabled";
+            pw.value="";
+            piw++;
+            pw.required = false;
+        }
+        else{
+        pw.disabled = false;
+         piw++;
+         pw.required = true;
+        }
+        return piw
+     }
  if(inn=="email"){
     var rem = ewk%2;
      var cem = document.getElementById("mail");
@@ -284,6 +295,7 @@ return ewk
     return paw
  }
 
+ return inn
 }
 function updtmng(){
     var mpw = pwk%2;
@@ -309,14 +321,16 @@ function updtmng(){
         sleep(250);
       if (response) { 
           hideSpinner(); 
-       
-          if(window.location.pathname=="pi/produtos.php"){
+          
+          if(window.location.pathname=="/pi/produtos.php"){
           slider();
         }
           err();
           return window.location.pathname
       } 
     }
+ 
+
     function sleep(milliseconds) {
       const date = Date.now();
       let currentDate = null;
@@ -327,8 +341,12 @@ function updtmng(){
     function hideSpinner() { 
         document.getElementById('spinner').style.display = 'none';
         document.getElementById('overlay').classList ="carregado";
-        document.getElementById('corpo').classList ="corpo w3-animate-opacity";
+            document.getElementById('corpo').classList ="bg-light";
         document.getElementById('corpo').style.visibility ="visible";
+        if(valor_cookie("item")!=false){
+        document.getElementById("carrinho").innerHTML = valor_cookie("item").length/2;
+    }
+        return(window.location.pathname);
     }  
     function slider(){
         var slide1 = document.getElementsByClassName("carousel-item");
@@ -350,3 +368,74 @@ function updtmng(){
     function msgbv(){
         document.getElementById("jumbo").classList += " hidden";
     }
+    function ccr(idp){
+        var ic = valor_cookie("items");
+        console.log(ic);
+        removeItem("items","/pi",location.host);
+       // var queryString = window.location.search;
+       // let params = new URLSearchParams(queryString);
+       // let q = parseInt(params.get("id"));
+       var q=idp;
+        if(ic==false){
+            ic =((q+"+")).toString();
+        }else{
+            ic =(ic+(q+"+")).toString();
+        }
+        cria_cookie("items",(ic));
+      if((ic.length%2)!=0){
+          console.log("aaaaaaaaaaa");
+      }
+      console.log(ic);
+        document.getElementById("carrinho").innerHTML = ic.length/2;
+        
+    }
+
+
+    function removeItem(sKey, sPath, sDomain) {
+        document.cookie = encodeURIComponent(sKey) + 
+                      "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + 
+                      (sDomain ? "; domain=" + sDomain : "") + 
+                      (sPath ? "; path=" + sPath : "");
+    }
+    function ssenha(bname){
+        var iname = document.getElementById(bname);
+        if(bname == "cpwc"){
+            var inameb = document.getElementById("cpw");
+            if(iname.type=="password"){
+                iname.type="text";
+                inameb.type="text";
+            }else{
+                iname.type = "password";
+                inameb.type = "password";
+            }
+        }else{
+        if(iname.type=="password"){
+            iname.type="text";
+        }else{
+            iname.type = "password";
+        }
+    }
+}
+function gerar_receita(obj){
+if(obj==1){
+    var imgr = document.getElementById("imgr");
+    var ttd = document.getElementById("ttd");
+    ttd.innerText = "Indicamos 3 colheres de sopa de arroz, uma concha de feijão, 3 colheres de sopa de salada e um filé de frango do tamanho da palma da mão.";
+    imgr.src = "images/554d0f0165b13.jpg";
+
+}
+if(obj==2){
+    var imgr = document.getElementById("imgr");
+    var ttd = document.getElementById("ttd");
+    ttd.innerText = "Numa tigela grande, misture 3 xíc. de alface picada, 1/4 de xíc. de pepino fatiado, 4 fatias de pimentão verde ou vermelho, 1 fatia de mussarela, 1 col. (sopa) de nozes picadas e 85 g de peito de frango grelhado. Tempere com 1 col. (sopa) de vinagre e 1 col. (sopa) de azeite de oliva. Coma também 2 fatias de pão integral 1/2 laranja OU 1 ameixa OU 1 xíc. de morangos";
+    imgr.src = "images/zacks-travessa-do-ouvidor.jpg";
+
+}
+if(obj==3){
+    var imgr = document.getElementById("imgr");
+    var ttd = document.getElementById("ttd");
+    ttd.innerText = "5 col. (sopa) de arroz integral + 5 col. (sopa) de feijão + 1 filé de frango ou peixe grelhado + 4 col. (sopa) de abobrinha refogada com tomate + ½ prato de salada de sua preferência.";
+    imgr.src = "images/1_G_CALF--FIL-DE-FRANGO-GRELHADO--ARROZ-INTEGRAL.jpg";
+
+}
+}
